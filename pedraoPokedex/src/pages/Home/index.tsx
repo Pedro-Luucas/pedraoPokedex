@@ -1,21 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import api from '../../service/api'
 import * as S from './styles'
+import { Card, Pokemon, PokemonType } from '../../components/Card';
 
-type PokemonType = {
-    type: {
-      name: string;
-      url?: string;
-    };
-  };
 
-type Pokemon = {
-    name: string
-    url: string
-    id: number
-    types: PokemonType[]
-}
+
 
 type Request = {
     id: number;
@@ -25,34 +15,40 @@ type Request = {
 
 export function Home() {
 
-
+    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
     useEffect(() => {
-        async function getAllPokemons() {
+        async function getAllPokemons(): Promise<void> {
             const response = await api.get('/pokemon')
             const { results } = response.data;
 
-            const payloadPokemons = await Promise.all(
+            const payloadPokemons : Pokemon[] = await Promise.all(
                 results.map(async (pokemon : Pokemon) => {
                     const {id, types} = await getMoreInfo(pokemon.url)
 
                     return {
                         name: pokemon.name,
-                        id, 
+                        id,
+                        url: pokemon.url, 
                         types
                     }
                 })
             )
             console.log(payloadPokemons)
+            setPokemons(payloadPokemons)
         }
-        
+
         getAllPokemons()
     }, [])
 
+
     async function getMoreInfo(url: string) : Promise<Request>  {
+
         const response = await api.get(url)
-        const {id, types} = response.data;
+
+        const {id, types} = response.data as Request;
         console.log(types)
+
         return {
             id, 
             types
@@ -60,6 +56,15 @@ export function Home() {
     }
 
     return (
-        <S.Container></S.Container>
+        <S.Container>
+            <S.FlatList
+                data={pokemons}
+                renderItem={({item: pokemon}) => (
+                    <Card data={pokemon as Pokemon} />
+                )}
+                
+            />
+                 
+        </S.Container>
     )
 }

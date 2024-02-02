@@ -1,8 +1,12 @@
 import styled, { css } from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     ${({theme}) => css`
         flex: 1;
-        background-color: ${theme.colors.backgroundTypes.grass};
+        
     `}
+`;
+
+export const FlatList = styled.FlatList`
+    padding: 10px;
 `;

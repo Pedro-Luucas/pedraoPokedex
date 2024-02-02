@@ -3,6 +3,7 @@ export default {
         background: '#FFF',
         textWhite: '#FFF',
         textBlack: '#000',
+        textLight: 'rgba(23, 23, 27, 0.6)',
 
         backgroundTypes: {
             grass: '#8BBE8A',
