@@ -34,4 +34,5 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# ignore the ProgramData folder
 %ProgramData%/

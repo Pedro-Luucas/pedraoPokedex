@@ -9,9 +9,9 @@ type Props = {
 } & TouchableOpacityProps
 
 
-export function Button({title}: Props){
+export function Button({title, ...rest}: Props){
     return (
-        <S.Container>
+        <S.Container {...rest as TouchableOpacityProps}>
             <S.Title>{title}</S.Title>
         </S.Container>
     )

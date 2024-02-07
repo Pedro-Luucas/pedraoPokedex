@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
 
 import api from '../../service/api'
 import * as S from './styles'
 import { Card, Pokemon, PokemonType } from '../../components/Card';
 
+import pokeballHeader from '../../assets/img/pokeball.png'
 
 
 
@@ -55,14 +57,21 @@ export function Home() {
         }
     }
 
+
     return (
         <S.Container>
-            <S.FlatList
+            <FlatList
+                ListHeaderComponent={
+                    <>
+                        <S.PokeballHeader source={pokeballHeader}/>
+                        <S.Title>Pokédex do Pedrão</S.Title>
+                    </>
+                }
                 data={pokemons}
                 renderItem={({item: pokemon}) => (
                     <Card data={pokemon as Pokemon} />
                 )}
-                
+                style={{padding: 10}}
             />
                  
         </S.Container>

@@ -7,8 +7,15 @@ import { Button } from "../../components/Button";
 
 
 import * as S from './styles'
+import { useNavigation } from "@react-navigation/native";
 
 export function Welcome() {
+
+    const {navigate} = useNavigation()
+    function handleNavigation(){
+        navigate('Home')
+    }
+
     return (
     <S.Container>
         <S.Content>
@@ -17,7 +24,7 @@ export function Welcome() {
         <S.Footer>
             <S.Title>POKEDEX DO PEDRÃO</S.Title>
             <S.SubTitle>typescript HAHAHHAHAHAHHAHAHHAHAHAHAH</S.SubTitle>
-            <Button title="Iniciar"></Button>
+            <Button title="Iniciar" onPress={handleNavigation}/>
         </S.Footer>
     </S.Container>
 )}

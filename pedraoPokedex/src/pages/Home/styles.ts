@@ -1,4 +1,8 @@
+import { Dimensions } from "react-native";
 import styled, { css } from "styled-components/native";
+
+
+const windowWidth = Dimensions.get('window').width
 
 export const Container = styled.SafeAreaView`
     ${({theme}) => css`
@@ -7,6 +11,14 @@ export const Container = styled.SafeAreaView`
     `}
 `;
 
-export const FlatList = styled.FlatList`
-    padding: 10px;
+export const PokeballHeader = styled.ImageBackground`
+    ${({theme}) => css`
+        width: ${windowWidth}px;
+        height: 220px;
+        background-color: ${theme.colors.background}
+    `}
+`;
+
+export const Title = styled.Text`
+    
 `;
