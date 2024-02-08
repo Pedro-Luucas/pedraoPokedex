@@ -6,6 +6,7 @@ import * as S from './styles'
 import { Card, Pokemon, PokemonType } from '../../components/Card';
 
 import pokeballHeader from '../../assets/img/pokeball.png'
+import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -18,6 +19,13 @@ type Request = {
 export function Home() {
 
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+
+    const {navigate} = useNavigation()
+    function handleNavigation(pokemonID: number){
+        navigate('About', {
+            pokemonID,
+        })
+    }
 
     useEffect(() => {
         async function getAllPokemons(): Promise<void> {
@@ -36,7 +44,6 @@ export function Home() {
                     }
                 })
             )
-            console.log(payloadPokemons)
             setPokemons(payloadPokemons)
         }
 
@@ -49,7 +56,6 @@ export function Home() {
         const response = await api.get(url)
 
         const {id, types} = response.data as Request;
-        console.log(types)
 
         return {
             id, 
@@ -69,9 +75,13 @@ export function Home() {
                 }
                 data={pokemons}
                 renderItem={({item: pokemon}) => (
-                    <Card data={pokemon as Pokemon} />
+                    <Card data={pokemon as Pokemon} onPress={() => {
+                        handleNavigation(pokemon.id)
+                    }
+
+                    } />
                 )}
-                style={{padding: 10}}
+                contentContainerStyle={{paddingHorizontal: 15}}
             />
                  
         </S.Container>
